@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-10">
+    <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold mb-4 text-center">To-Do List</h2>
+        
+        <div class="flex justify-end mb-4">
+            <button onclick="document.getElementById('taskForm').classList.toggle('hidden')" class="bg-blue-500 text-white p-2 rounded-full w-10 h-10 flex items-center justify-center text-xl">+</button>
+        </div>
+        
+        <form id="taskForm" method="POST" action="{% url 'add_task' %}" class="mb-4 flex flex-col gap-4 hidden">
+            {% csrf_token %}
+            <input type="text" name="task" placeholder="Task Name" class="border p-2 rounded w-full" required>
+            <textarea name="description" placeholder="Description (optional)" class="border p-2 rounded w-full"></textarea>
+            <input type="date" name="due_date" class="border p-2 rounded w-full" required>
+            <button type="submit" class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Add Task</button>
+        </form>
+        
+        <ul class="border rounded-md overflow-hidden">
+            {% for task in tasks %}
+            <li class="flex justify-between items-center p-4 border-b">
+                <div>
+                    <p class="font-semibold">{{ task.name }}</p>
+                    <p class="text-sm text-gray-600">{{ task.description }}</p>
+                    <p class="text-xs text-gray-500">Due: {{ task.due_date }}</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="{% url 'toggle_status' task.id %}" class="w-4 h-4 rounded-full border-2 {% if task.status %}bg-green-500 border-green-500{% else %}border-gray-500{% endif %}"></a>
+                    <a href="{% url 'delete_task' task.id %}" class="text-red-500">✖</a>
+                </div>
+            </li>
+            {% empty %}
+            <li class="p-4 text-center text-gray-500">No tasks yet</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

@@ -54,7 +54,17 @@ Ensure you have Python and Pipenv installed on your system.
 
 ## Screenshots
 
+### Task List
+![Task List Screenshot](assets/task_list.png)
 
+### Add Task
+![Add Task Screenshot](assets/add_task.png)
+
+### Firebase Database 1
+![Firebase Database Screenshot 1](assets/database_1.png)
+
+### Firebase Database 2
+![Firebase Database Screenshot 2](assets/database_2.png)
 
 ## Contributing
 
